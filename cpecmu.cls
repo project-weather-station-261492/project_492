@@ -285,7 +285,7 @@
       }%
       \vfill
       \ifproject%
-        Smart Energy \\
+        Smart Energy  \\
       \else%
         A Report Submitted in Partial Fulfillment of Project Survey Course \\
         as Required by the Degree of Bachelor of Engineering \\
