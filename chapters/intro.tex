@@ -50,7 +50,7 @@
 
 \subsection{\ifenglish Model scope\else ขอบเขตด้าน Machine Learning Model\fi}
 \begin{enumerate}
-    \item การทำความสะอาดข้อมูล (Data Cleaning)
+    \item การทำความสะอาดข้อมูล (Data Cleaning) เพื่อนำมาใช้ในการสร้าง Machine Learning Model 
     \item การเลือกคุณลักษณะที่สำคัญต่อการพยากรณ์ปริมาณการผลิตไฟฟ้า (Feature Selection)
     \item โมเดลสามารถพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ล่วงหน้า 24 ชั่วโมงได้
 \end{enumerate}
@@ -59,11 +59,11 @@
 
 
 \section{\ifenglish Expected outcomes\else ประโยชน์ที่ได้รับ\fi}
-\begin{itemize}
-    \item[1.] ผู้ใช้สามารถวางแผนการใช้พลังงานไฟฟ้าได้อย่างมีประสิทธิภาพมากขึ้น โดยสามารถดูการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ได้ล่วงหน้า 24 ชั่วโมง
-    \item[2.] ช่วยลดการพึ่งพาพลังงานไฟฟ้าจากภายนอก (PEA) และเพิ่มประสิทธิภาพการใช้พลังงานที่ผลิตได้จากแผงโซลาร์เซลล์
-    \item[3.] ช่วยลดการปล่อยแก๊สคาร์บอนไดออกไซด์ และส่งเสริมการใช้พลังงานสะอาดจากแผงโซลาร์เซลล์
-\end{itemize}
+\begin{enumerate}
+    \item ผู้ใช้สามารถวางแผนการใช้พลังงานไฟฟ้าได้อย่างมีประสิทธิภาพมากขึ้น โดยสามารถดูการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ได้ล่วงหน้า 24 ชั่วโมง
+    \item  ช่วยลดการพึ่งพาพลังงานไฟฟ้าจากภายนอก (PEA) และเพิ่มประสิทธิภาพการใช้พลังงานที่ผลิตได้จากแผงโซลาร์เซลล์
+    \item  ช่วยลดการปล่อยแก๊สคาร์บอนไดออกไซด์ และส่งเสริมการใช้พลังงานสะอาดจากแผงโซลาร์เซลล์
+\end{enumerate}
     
 
 
@@ -72,29 +72,25 @@
 
 \subsection{\ifenglish Hardware technology\else เทคโนโลยีด้านฮาร์ดแวร์\fi}
 \begin{itemize}
-    \item[] \textbf{1.5.1 เซนเซอร์ (Sensor) }
+    \item[] \textbf{1.5.1.1 เซนเซอร์ (Sensor) }
+    \begin{enumerate}
+    \item BME280: เซนเซอร์ใช้สำหรับวัดอุณหภูมิ ความชื้นและความกดอากาศ 
+    \item VEML7700: เซนเซอร์ใช้สำหรับวัดความเข้มแสง 
+    \item Wind Speed: เซนเซอร์ใช้สำหรับวัดความเร็วลม 
+    \item Wind Direction: เซนเซอร์ใช้สำหรับวัดทิศทางลม 
+    \item PT100: เซนเซอร์วัดอุณหภูมิใช้สำหรับวัดอุณหภูมิของแผงโซลาร์เซลล์ 
+    \end{enumerate}
 
-    \begin{itemize}
-    \item[] \textbf{1.5.1.1 เซนเซอร์วัดอุณหภูมิ ความชื้นและความกดอากาศ BME280 }
-    \end{itemize}
-    \begin{itemize}
-    \item[] \textbf{1.5.1.2 เซนเซอร์วัดความเข้มแสง VEML7700 } 
-    \end{itemize}
-    \begin{itemize}
-    \item[] \textbf{1.5.1.3 เซนเซอร์วัดความเร็วลม Wind Speed }
-    \end{itemize}
-    \begin{itemize}
-    \item[] \textbf{1.5.1.4 เซนเซอร์วัดทิศทางลม Wind Direction }
-    \end{itemize}
-    \begin{itemize}
-    \item[] \textbf{1.5.1.5 เซนเซอร์วัดอุณหภูมิ PT100 }
-    \end{itemize}
-    \begin{itemize}
-    \item[]  \textbf{1.5.1.6 ไมโครคอนโทรลเลอร์ (Microcontroller) ESP32 }
-    \end{itemize}
-    \begin{itemize}
-    \item[] \textbf{1.5.1.7 ซิมการ์ด (SIM Card) สำหรับการเชื่อมต่ออินเทอร์เน็ตผ่านเครือข่ายมือถือ SIM800L }
-    \end{itemize}
+    \item[]  \textbf{1.5.1.2 ไมโครคอนโทรลเลอร์ (Microcontroller) }
+    \begin{enumerate}
+        \item ESP32: ใช้สำหรับควบคุมการทำงานของสถานีวัดสภาพอากาศขนาดย่อมและส่งข้อมูลที่วัดได้จากสถานีไปยังระบบจัดเก็บข้อมูล
+    \end{enumerate} 
+
+    \item[] \textbf{1.5.1.3 ซิมการ์ด (SIM Card)  }
+    \begin{enumerate}
+        \item SIM800L: ใช้สำหรับการเชื่อมต่ออินเทอร์เน็ตผ่านเครือข่ายมือถือเพื่อส่งข้อมูลจากสถานีวัดสภาพอากาศขนาดย่อมไปยังระบบจัดเก็บข้อมูล
+    \end{enumerate}
+
 
 \end{itemize}
 
