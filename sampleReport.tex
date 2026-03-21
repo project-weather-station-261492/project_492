@@ -69,6 +69,14 @@
 %% Useful if your report is large, as you might not want to build
 %% the entire file when editing a certain part of your report.
 % \includeonly{chapters/intro,chapters/background}
+\usepackage{caption}
+\captionsetup{
+    justification=centering, % จัดข้อความทุกบรรทัดให้อยู่กึ่งกลาง
+    singlelinecheck=false,   % บังคับกึ่งกลางแม้จะมีข้อความเพียงบรรทัดเดียว
+    font=small,              % (ตัวเลือกเสริม) ปรับขนาดตัวอักษรให้เล็กกว่าเนื้อหาเล็กน้อย
+    labelfont=bf             % (ตัวเลือกเสริม) ทำตัวหนาที่คำว่า "รูปที่ X.Y"
+}
+
 
 \begin{document}
 \include{chapters/frontmatter}
