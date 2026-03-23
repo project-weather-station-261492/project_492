@@ -1,4 +1,5 @@
 \chapter{\ifproject%
+\sloppy
 \ifenglish Project Structure and Methodology\else โครงสร้างและขั้นตอนการทำงาน\fi
 \else%
 \ifenglish Project Structure\else โครงสร้างของโครงงาน\fi
@@ -307,7 +308,187 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 \newpage
 \section{เซิฟเวอร์และเว็บไซต์สำหรับแสดงผล}
 \subsection{ภาพรวมของระบบ (System Overview)}
+\hspace{\parindent}ระบบเซิร์ฟเวอร์และเว็บไซต์สำหรับแสดงผลถูกพัฒนาขึ้นเพื่อทำหน้าที่เป็นศูนย์กลางในการจัดการข้อมูลจากสถานีวัดสภาพอากาศ และแสดงผลลัพธ์จากโมเดลการทำนายการผลิตไฟฟ้าจากโซลาร์เซลล์ล่วงหน้า 24 ชั่วโมง โดยระบบถูกออกแบบในลักษณะของสถาปัตยกรรมแบบ Client-Server เพื่อให้สามารถรองรับการทำงานแบบเรียลไทม์และการเข้าถึงข้อมูลผ่านเครือข่ายอินเทอร์เน็ต
+
+ในภาพรวม ระบบสามารถแบ่งออกเป็น 4 ส่วนหลัก ได้แก่ สถานีวัดสภาพอากาศ (Weather Station), เซิร์ฟเวอร์ (Server), ฐานข้อมูล (Database) และเว็บไซต์สำหรับแสดงผล (Web Application) โดยมีการทำงานร่วมกันดังนี้
+
+\begin{enumerate}
+    \item สถานีตรวจวัดสภาพอากาศขนาดย่อม ทำการตรวจวัดข้อมูลสภาพแวดล้อม และส่งข้อมูลไปที่เซิฟเวอร์ผ่านเครือข่ายอินเทอร์เน็ต
+    \item เซิร์ฟเวอร์ทำหน้าที่รับข้อมูลจากสถานีตรวจวัด จัดเก็บข้อมูลลงในฐานข้อมูล
+    \item เซิร์ฟเวอร์เรียกใช้งานโมเดลการทำนายเพื่อคาดการณ์การผลิตไฟฟ้าล่วงหน้า 24 ชั่วโมง โดยใช้ข้อมูลล่าสุดร่วมกับข้อมูลในอดีต
+    \item ผลลัพธ์จากการทำนายและข้อมูลสภาพอากาศจะถูกเก็บลงฐานข้อมูล และส่งไปยังเว็บไซต์เพื่อแสดงผลให้ผู้ใช้งานสามารถเข้าถึงได้
+\end{enumerate}
+
+การออกแบบระบบในลักษณะนี้ช่วยให้สามารถแยกหน้าที่การทำงานของแต่ละส่วนได้อย่างชัดเจน (Modular Design) เพิ่มความยืดหยุ่นในการพัฒนา และรองรับการขยายระบบในอนาคต เช่น การเพิ่มจำนวนสถานีตรวจวัด หรือการปรับปรุงโมเดลการทำนาย
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter_3/software_diagram.png} 
+    \caption{แผนภาพแสดงการทำงานของระบบซอฟแวร์}
+    \label{fig:software diagram}
+\end{figure}
+
 \subsection{เทคโนโลยีและเครื่องมือที่ใช้ (Technology Stack and Tools)}
+\begin{itemize}
+    \item[]\textbf{3.3.2.1 ฐานข้อมูล (Database)}\\
+    \hspace{\parindent} ระบบเลือกใช้ PostgreSQL เป็นฐานข้อมูลหลัก เนื่องจากเป็น Open Source และรองรับการจัดเก็บข้อมูลแบบ Time-Series ได้อย่างมีประสิทธิภาพ เหมาะสำหรับเก็บข้อมูลสภาพอากาศ, ผลลัพธ์การทำนาย และข้อมูลการผลิตไฟฟ้าจากโซลาร์เซลล์
+
+    \item[]\textbf{3.3.2.2 หลังบ้าน (Backend)}\\
+    \hspace{\parindent} สำหรับ Backend ใช้ Fast API เนื่องจากรองรับการสร้าง API ที่มีประสิทธิภาพสูง สามารถทำงานร่วมกับข้อมูลและโมเดล Machine Learning ได้ดี อีกทั้งยังช่วยให้การพัฒนาระบบทำได้รวดเร็วและมีโครงสร้างที่ชัดเจน
+
+    \item[]\textbf{3.3.2.3 หลังบ้าน (Frontend)}\\
+    \hspace{\parindent} Frontend ใช้ Vite.js ร่วมกับ React เพื่อสร้างเว็บไซต์ที่สามารถรองรับทั้ง Desktop และ Mobile View พร้อมความสามารถในการเชื่อมต่อแบบเรียลไทม์กับ Backend ผ่าน API
+
+\end{itemize}
+
 \subsection{การออกแบบฐานข้อมูลและการจัดการข้อมูล (Database Design and Data Management)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter_3/DB.jpg}
+    \caption{แผนภาพแสดงความสัมพันธ์ของตารางฐานข้อมูล}
+    \label{fig:ER diagram}
+\end{figure}
+
+\begin{itemize}
+    \item[]\textbf{3.3.3.1 ตารางข้อมูล Station}
+
+    \hspace{\parindent} ระบบเลือกใช้ PostgreSQL เป็นฐานข้อมูลหลัก เนื่องจากเป็น Open Source และรองรับการจัดเก็บข้อมูลแบบ Time-Series ได้อย่างมีประสิทธิภาพ เหมาะสำหรับเก็บข้อมูลสภาพอากาศ, ผลลัพธ์การทำนาย และข้อมูลการผลิตไฟฟ้าจากโซลาร์เซลล์
+
+    \item[]\textbf{3.3.3.2 ตารางข้อมูล weather\_db}
+
+    \hspace{\parindent} ตารางนี้ใช้สำหรับเก็บข้อมูลสภาพอากาศที่วัดได้จากเซนเซอร์ในแต่ละช่วงเวลา ประกอบไปด้วยค่าอุณหภูมิอากาศ (air\_temp) ความชื้นสัมพัทธ์ (humidity) ความกดอากาศ (air\_pressure) ความเร็วลม (wind\_speed) ทิศทางลม (wind\_direction) ความเข้มของแสง (light\_lux) และอุณหภูมิแผงโซลาร์เซลล์ (solar\_temp) โดยมีคีย์หลักร่วมคือ station\_id และเวลาที่ทำการบันทึกข้อมูล (recorded) เพื่อระบุชุดข้อมูลสภาพอากาศของแต่ละสถานีตามเวลาจริง
+
+    \item[]\textbf{3.3.3.3 ตารางข้อมูล rawdata\_pv}
+
+    \hspace{\parindent} ตารางนี้ใช้สำหรับเก็บข้อมูลปริมาณการผลิตไฟฟ้าจริงซึ่งเป็นข้อมูลที่ขอมาจากศูนย์ SCMC มหาวิทยาลัยเชียงใหม่ ประกอบไปด้วยค่าปริมาณไฟฟ้าที่ผลิตได้ (pv\_unit) ในแต่ละช่วงเวลา (timestamp) โดยมีการเชื่อมโยงผ่าน station\_id เพื่อให้สามารถนำข้อมูลการผลิตไฟฟ้าจริงไปเปรียบเทียบกับสภาวะอากาศในช่วงเวลาเดียวกันได้
+    
+    \item[]\textbf{3.3.3.4 ตารางข้อมูล pv\_prediction}
+
+    \hspace{\parindent} ตารางนี้ใช้สำหรับเก็บผลลัพธ์ที่ได้จากการพยากรณ์ปริมาณการผลิตไฟฟ้าล่วงหน้า ประกอบไปด้วยเวลาที่คาดการณ์ (forecast\_time) และปริมาณไฟฟ้าพยากรณ์ (pv\_output) โดยเชื่อมโยงกับตารางสถานีผ่าน station\_id และอ้างอิงความสัมพันธ์กับตาราง weather\_db เพื่อใช้เป็นข้อมูลนำเข้าในการสร้างแบบจำลองการพยากรณ์
+
+    \item[]\textbf{3.3.3.5 ตารางข้อมูล authorities}
+    
+    \hspace{\parindent} ตารางนี้ใช้สำหรับการจัดเก็บข้อมูลผู้ดูแลระบบหรือเจ้าหน้าที่ที่มีสิทธิ์ในการเข้าถึงระบบ ประกอบด้วย เลขพนักงาน (employee\_id) ชื่อพนักงาน (employee\_name) และรหัสผ่าน (password) สำหรับการตรวจสอบสิทธิ์ (Authentication) ในการเข้าใช้งานหน้าจอการบริหารจัดการข้อมูล
+
+\end{itemize}
+
 \subsection{การออกแบบ API(Application Programming Interface)}
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Endpoint} & \textbf{Method} & \textbf{Description} \\ \hline
+    /api/station/ & GET & ดึงรายการสถานีตรวจวัดสภาพอากาศทั้งหมดในระบบ\\ \hline
+    /api/station/ & POST & ลงทะเบียนเพิ่มสถานีตรวจวัดสภาพอากาศใหม่เข้าสู่ระบบ\\ \hline
+    /api/station/\{station\_id\} &  GET & ดึงข้อมูลรายละเอียดเฉพาะของสถานีที่ระบุตาม ID\\ \hline
+    /api/weather\_db/ & POST & บันทึกข้อมูลสภาพอากาศชุดใหม่ (จากบอร์ด ESP32) ลงในฐานข้อมูล\\ \hline
+    /api/weather\_db/\{station\_id\} & GET & ดึดึงข้อมูลสภาพอากาศย้อนหลังของสถานีที่ระบุ\\ \hline
+    /api/pv\_prediction/{station\_id} & GET & ดึงข้อมูลปริมาณการผลิตไฟฟ้าจริง (Actual PV)\\
+    /api/billing/raw\-data/save & POST & บันทึกข้อมูลปริมาณการผลิตไฟฟ้าจริงจากแผงโซลาร์เซลล์\\ \hline
+    /api/predict/\{station\_id\} & GET & ดึงข้อมูลพยากรณ์ไฟฟ้าล่วงหน้าเฉพาะของสถานีที่ระบุ\\ \hline
+    /api/authorities/login & POST & ตรวจสอบสิทธิ์การเข้าใช้งานระบบสำหรับเจ้าหน้าที่ (Login)\\ \hline
+    /api/authorities & POST & เพิ่มสิทธิ์การเข้าใช้งานระบบสำหรับเจ้าหน้าที่\\ \hline
+    \end{tabular}
+\end{table}
+
+
 \subsection{การออกแบบส่วนติดต่อผู้ใช้และเว็บไซต์ (Frontend and User Interface Design)}
+
+\hspace{\parindent}Web Dashboard นี้ถูกออกแบบโดยคำนึงถึงการแสดงข้อมูลที่จำเป็นเพื่อให้ระบบมีประสิทธิภาพ ใช้งานง่ายและตอบโจทย์ความต้องการของผู้ใช้งานดังนี้
+\begin{enumerate}
+    \item แสดงข้อมูลปริมาณการพยากรณ์การผลิตไฟฟ้าจากโซลาร์เซล์โดยให้ผู้ใช้สามารถเห็นถึงช่วงเวลาที่มีการผลิตไฟฟ้าจากโซลาร์เซลล์ร่วมด้วย
+    \item แสดงผลข้อมูลปริมาณการผลิตไฟฟ้าได้จริงโดยโดยให้ผู้ใช้สามารถเห็นถึงช่วงเวลาที่มีการผลิตไฟฟ้าจากโซลาร์เซลล์ร่วมด้วย
+    \item  แสดงข้อมูลสภาพอากาศที่ได้มาจากสถานีตรวจวัดสภาพอากาศขนาดย่อมโดยข้อมูลตัวเลขรายชั่วโมงต้องถูกนำมาแสดงผลเพื่อให้ผู้ใช้เห็นภาพแนวโน้มของสภาพอากาศ
+    \item เพื่อให้ง่ายต่อการติดตามดูแลรักษาสถานีวัดสภาพอากาศขนาดย่อมควรมีการติดตามสถานะของระบบการทำงานและสถานะเซนเซอร์ว่ายังสามารถทำงานปกติหรือไม่
+\end{enumerate}
+
+
+\begin{itemize}
+    \item[]\textbf{3.3.5.1 การออกแบบหน้าจอหลัก (Home)} ประกอบไปด้วยเมนู 2 เมนูคือ
+    \begin{itemize}
+        \item Station: เลือกสถานีวัดสภาพอากาศขนาดย่อมที่ต้องการดูข้อมูล
+        \item Setting Station: เมนูสำหรับเจ้าหน้าที่ที่สามารถเข้าไปเช็คสถานะการทำงานของสถานีวัดสภาพอากาศขนาดย่อม
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/Home.png}
+        \caption{หน้าจอแสดงผลหลัก}
+        \label{fig:Home}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/select_menu.png}
+        \caption{หน้าจอการแสดงผลเมื่อผู้ใช้คลิกปุ่ม Station}
+        \label{fig:select menu}
+    \end{figure}
+
+    \item[]\textbf{3.3.5.2 การออกแบบหน้าเมนู} หน้านี้จะแสดงข้อมูลทั้งหมดของระบบหลังจากที่ผู้ใช้เลือกปุ่ม Station ซึ่งประกอบไปด้วย
+    \begin{itemize}
+        \item เมนู Electric Current: แสดงกราฟการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ซึ่งผู้ใช้สามารถเลือกวันที่ที่ต้องการดูข้อมูลได้
+        \item เมนู Sunlight, Temperature, Humidity, Pressure, Wind Speed, Wind Direction เป็นเมนูแสดงข้อมูลที่ถูกส่งมาจากสถานีวัดสภาพอากาศขนาดย่อมรายชั่วโมง
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/electric.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Electric Current}
+        \label{fig:Electric Current}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/date.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกวันที่ที่ต้องการดูข้อมูล}
+        \label{fig:Select date}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/sun.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Sunlight}
+        \label{fig:Sunlight}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/temp.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Temperature}
+        \label{fig:Temp}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/Humidity.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Humidity}
+        \label{fig:Humidity}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/pressure.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Pressure}
+        \label{fig:Pressure}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/windSpeed.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Speed}
+        \label{fig:Wind Speed}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/windDirection.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Direction}
+        \label{fig:Wind Direction}
+    \end{figure}
+
+    \item[]\textbf{3.3.5.3 การออกแบบหน้า Login} หน้านี้ออกแบบขึ้นมาเพื่อให้เจ้าหน้าที่เท่านั้นที่สามารถเข้าถึงการทำงานของสถานีวัดสภาพอากาศขนาดย่อมเท่านั้น
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/login.png}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Setting Station}
+        \label{fig:Wind Direction}
+    \end{figure}
+
+    \item[]\textbf{3.3.5.4 การออกแบบหน้า Status Sensor} หน้านี้ออกแบบขึ้นเพื่อติดตามสถานะการทำงานของตัววัดสถานีสภาพอากาศขนาดย่อมโดยสถานีจะต้องส่งสถานะมาทุกๆ 15 นาทีและเจ้าหน้าที่จะต้องสามารถติดตามสถานะของเซนเซอร์แต่ละตัวได้
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/chapter_3/statusSensor.png}
+        \caption{หน้าจอแสดงผลสถานะการทำงานของเซนเซอร์}
+        \label{fig:Sensor Status}
+    \end{figure}
+
+\end{itemize}
+
