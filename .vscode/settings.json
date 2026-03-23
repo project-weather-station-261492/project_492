@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "latex-workshop.latex.tools": [
     {
       "name": "latexmk",
@@ -14,20 +13,3 @@
     }
   ]
 }
-=======
-    "latex-workshop.latex.tools": [
-      {
-        "name": "latexmk",
-        "command": "latexmk",
-        "args": [
-          "-pdfxe",
-          "-synctex=1",
-          "-interaction=nonstopmode",
-          "-file-line-error",
-          "%DOC%"
-        ]
-      }
-    ],
-    "latex-workshop.latex.search.rootFiles.exclude": ["**/sampleReport.tex"]
-}
->>>>>>> 3503202 (Add LaTeX settings and update project details in sample report edit cover)
