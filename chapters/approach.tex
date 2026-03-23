@@ -117,7 +117,6 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
         \caption{การออกแบบวงจรแปลงสัญญาณจาก I2C เป็น RS485 โดยใช้ไมโครคอนโทรลเลอร์เป็นตัวกลาง}
         \label{fig:node1 design}
     \end{figure}
-
     และกระบวนการทำงานของระบบสามารถอธิบายได้ดังนี้
     \begin{figure}[H]
         \centering
@@ -187,6 +186,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     PT100 & 3 \\ \hline
     Sensor Node & 4 \\ \hline
     \end{tabular}
+    \caption{ตารางแสดงข้อมูล ID ของอุปกรณ์}
     \end{table}
 
     กระบวนการสื่อสารสามารถอธิบายได้ดังนี้
@@ -224,14 +224,14 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \label{fig:main logic}
 \end{figure}
 
-\begin{enumerate}
-    \item ขั้นตอนการเริ่มต้นระบบ (Initialization Phase)
+\begin{itemize}
+    \item[]\textbf{3.1.3.1 ขั้นตอนการเริ่มต้นระบบ (Initialization Phase)} 
     \begin{enumerate}
         \item ระบบจ่ายไฟให้กับชุดควบคุมหลัก
         \item ชุดควบคุมหลักทำการกำหนดค่าเริ่มต้นและตรวจสอบการเชื่อมต่อของอุปกรณ์ (Hardware Initialization)
     \end{enumerate}
 
-    \item ขั้นตอนการตรวจสอบอุปกรณ์ (Device Checking Phase)
+    \item[]\textbf{3.1.3.2 ขั้นตอนการตรวจสอบอุปกรณ์ (Device Checking Phase)}
     \begin{enumerate}
         \item ชุดควบคุมหลักส่งคำสั่งไปยังอุปกรณ์แต่ละตัวเพื่อตรวจสอบสถานะการทำงาน
         \item อุปกรณ์ตอบกลับสถานะผ่านโปรโตคอล Modbus RTU
@@ -240,7 +240,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
         \item ทำซ้ำขั้นตอนที่ 3–6 เป็นจำนวน 4 รอบ เพื่อยืนยันความพร้อมของระบบก่อนเริ่มการเก็บข้อมูลจริง
     \end{enumerate}
 
-    \item ขั้นตอนการเก็บและส่งข้อมูล (Data Acquisition Phase)
+    \item[]\textbf{3.1.3.3 ขั้นตอนการเก็บและส่งข้อมูล (Data Acquisition Phase)}
     \begin{enumerate}
         \item ชุดควบคุมหลักร้องขอข้อมูลจากเซนเซอร์ทั้งหมดผ่าน RS485
         \item เซนเซอร์ส่งค่าที่ตรวจวัดได้กลับมาในรูปแบบ Modbus Register
@@ -248,7 +248,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
         \item ส่งข้อมูลไปยัง Server ผ่านโมดูลสื่อสาร
         \item ระบบเข้าสู่โหมด Deep Sleep และวนกลับไปทำงานในขั้นตอนที่ 8
     \end{enumerate}
-\end{enumerate}
+\end{itemize}
 
 \hspace{\parindent} การออกแบบลักษณะนี้ช่วยให้ระบบสามารถตรวจสอบความพร้อมของอุปกรณ์ก่อนเริ่มการทำงานจริง ลดความผิดพลาดในการเก็บข้อมูล และช่วยประหยัดพลังงานผ่านการใช้โหมด Deep Sleep อีกทั้งยังเพิ่มความน่าเชื่อถือของระบบโดยรวม
 
@@ -371,7 +371,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 
 \end{itemize}
 
-\subsection{การออกแบบ API(Application Programming Interface)}
+\subsection{การออกแบบ API (Application Programming Interface)}
 \begin{table}[H]
     \begin{tabular}{|l|l|l|}
     \hline
@@ -387,6 +387,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     /api/authorities/login & POST & ตรวจสอบสิทธิ์การเข้าใช้งานระบบสำหรับเจ้าหน้าที่ (Login)\\ \hline
     /api/authorities & POST & เพิ่มสิทธิ์การเข้าใช้งานระบบสำหรับเจ้าหน้าที่\\ \hline
     \end{tabular}
+    \caption{ตารางการออกแบบ API (Application Programming Interface)}
 \end{table}
 
 
