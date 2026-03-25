@@ -35,7 +35,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/chapter_3/block_diagram.png} 
+    \includegraphics[width=1\textwidth]{images/chapter_3/block_diagram.png} 
     \caption{Block Diagram แสดงโครงสร้างของสถานีวัดสภาพอากาศขนาดย่อม}
     \label{fig:block daigram}
 \end{figure}
@@ -50,7 +50,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/chapter_3/Power_diagram.jpg} 
+    \includegraphics[width=1\textwidth]{images/chapter_3/Power_diagram.jpg} 
     \caption{การออกแบบระบบจ่ายไฟฟ้าในสถานีวัดสภาพอากาศขนาดย่อม}
     \label{fig:power diagram}
 \end{figure}
@@ -97,7 +97,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/chapter_3/sensor_arch.png} 
+    \includegraphics[width=1\textwidth]{images/chapter_3/sensor_arch.png} 
     \caption{แผนภาพแสดงการเชื่อมต่อขอเซนเซอร์}
     \label{fig:sensor connection diagram}
 \end{figure}
@@ -113,10 +113,18 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.7\textwidth]{images/chapter_3/node1_design.png} 
-        \caption{การออกแบบวงจรแปลงสัญญาณจาก I2C เป็น RS485 โดยใช้ไมโครคอนโทรลเลอร์เป็นตัวกลาง}
-        \label{fig:node1 design}
+        \includegraphics[width=0.4\textwidth]{images/chapter_3/node1_block_diagram.png} 
+        \caption{Block Diagram แสดงการออกแบบระบบแปลงสัญญาณจาก I2C เป็น RS485}
+        \label{fig:node1 block diagram}
     \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/chapter_3/node1_schematic.png} 
+        \caption{Schematic Diagram แสดงการเชื่อมต่อระบบแปลงสัญญาณจาก I2C เป็น RS485}
+        \label{fig:node1 schematic diagram}
+    \end{figure}
+
     และกระบวนการทำงานของระบบสามารถอธิบายได้ดังนี้
     \begin{figure}[H]
         \centering
@@ -135,13 +143,6 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \hspace{\parindent} การออกแบบลักษณะนี้ช่วยให้สามารถรวมเซนเซอร์ที่ใช้ I2C เข้ากับระบบ RS485 เดียวกันได้อย่างมีประสิทธิภาพ ลดความซับซ้อนของการเดินสาย และเพิ่มความสามารถในการขยายระบบในอนาคต
     
     \hspace{\parindent} นอกจากนี้ การใช้ RS485 ยังช่วยเพิ่มความสามารถในการสื่อสารในระยะไกล และมีความทนทานต่อสัญญาณรบกวน เหมาะสำหรับการติดตั้งในสภาพแวดล้อมภายนอกอาคาร
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth, angle=90]{images/chapter_3/LINE_ALBUM_Station_260322_1.jpg} 
-        \caption{อุปกรณ์จริงที่แปลงสัญญาณจาก I2C เป็น RS485}
-        \label{fig:i2c to rs485 result}
-    \end{figure}
     
     \newpage
     \item [] \textbf{3.1.2.2 การแปลงสัญญาณจาก RTD เป็น RS485 (RTD to RS485 Conversion)} \\ 
@@ -154,7 +155,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.5\textwidth]{images/chapter_3/er.png} 
+        \includegraphics[width=0.4\textwidth]{images/chapter_3/er.png} 
         \caption{โมดูลแปลงสัญญาณ RTD เป็น RS485}
         \label{fig:rtd to rs485}
     \end{figure}
@@ -210,16 +211,24 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/chapter_3/main_design.png} 
-    \caption{การออกแบบวงจรควบคุมหลัก}
-    \label{fig:main control design}
+    \includegraphics[width=0.3\textwidth]{images/chapter_3/main_block.png} 
+    \caption{ฺBlock Diagram ของวงจรควบคุมหลัก}
+    \label{fig:main control block diagram}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/chapter_3/main_schematic.png} 
+    \caption{Schematic Diagram ของวงจรควบคุมหลัก}
+    \label{fig:main control schematic diagram}
+\end{figure}
+
+\newpage
 \hspace{\parindent} การทำงานของระบบสามารถแบ่งออกเป็น 3 ช่วงหลัก ได้แก่ การเริ่มต้นระบบ การตรวจสอบอุปกรณ์ และการเก็บข้อมูล โดยมีลำดับการทำงานดังนี้
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/chapter_3/main_logic.png} 
+    \includegraphics[width=1\textwidth]{images/chapter_3/main_logic.png} 
     \caption{แผนภาพแสดงกระบวนการทำงานของชุดควบคุมหลัก}
     \label{fig:main logic}
 \end{figure}
@@ -251,13 +260,6 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
 \end{itemize}
 
 \hspace{\parindent} การออกแบบลักษณะนี้ช่วยให้ระบบสามารถตรวจสอบความพร้อมของอุปกรณ์ก่อนเริ่มการทำงานจริง ลดความผิดพลาดในการเก็บข้อมูล และช่วยประหยัดพลังงานผ่านการใช้โหมด Deep Sleep อีกทั้งยังเพิ่มความน่าเชื่อถือของระบบโดยรวม
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter_3/main_result.jpg} 
-    \caption{อุปกรณ์จริงที่ทำงานตามกระบวนการที่ออกแบบไว้}
-    \label{fig:main result}
-\end{figure}
 
 \newpage
 \section{โมเดลการทำนายการผลิตไฟฟ้าจากโซลาร์เซลล์}
@@ -411,13 +413,13 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/Home.png}
-        \caption{หน้าจอแสดงผลหลัก}
+        \caption{การออกแบบหน้าจอแสดงผลหลัก}
         \label{fig:Home}
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.7\textwidth]{images/chapter_3/select_menu.png}
-        \caption{หน้าจอการแสดงผลเมื่อผู้ใช้คลิกปุ่ม Station}
+        \includegraphics[width=0.6\textwidth]{images/chapter_3/select_menu.png}
+        \caption{การออกแบบหน้าจอการแสดงผลเมื่อผู้ใช้คลิกปุ่ม Station}
         \label{fig:select menu}
     \end{figure}
 
@@ -429,49 +431,49 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/electric.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Electric Current}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Electric Current}
         \label{fig:Electric Current}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/date.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกวันที่ที่ต้องการดูข้อมูล}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกวันที่ที่ต้องการดูข้อมูล}
         \label{fig:Select date}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/sun.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Sunlight}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Sunlight}
         \label{fig:Sunlight}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/temp.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Temperature}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Temperature}
         \label{fig:Temp}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/Humidity.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Humidity}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Humidity}
         \label{fig:Humidity}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/pressure.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Pressure}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Pressure}
         \label{fig:Pressure}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/windSpeed.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Speed}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Speed}
         \label{fig:Wind Speed}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/windDirection.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Direction}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Wind Direction}
         \label{fig:Wind Direction}
     \end{figure}
 
@@ -479,7 +481,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/login.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Setting Station}
+        \caption{การออกแบบหน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Setting Station}
         \label{fig:Wind Direction}
     \end{figure}
 
@@ -487,7 +489,7 @@ PT100 & วัดอุณหภูมิ ณ จุดสัมผัส & RTD 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/chapter_3/statusSensor.png}
-        \caption{หน้าจอแสดงผลสถานะการทำงานของเซนเซอร์}
+        \caption{การออกแบบหน้าจอแสดงผลสถานะการทำงานของเซนเซอร์}
         \label{fig:Sensor Status}
     \end{figure}
 
