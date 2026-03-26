@@ -20,7 +20,7 @@
     \end{figure}
      \begin{figure}[H]
         \centering
-        \includegraphics[width=0.7\textwidth]{picture/Hardware overview.png}
+        \includegraphics[width=0.7\textwidth]{picture/Hardware_overview.png}
         \caption{ภาพรวมของสถานีวัดสภาพอากาศขนาดย่อม}
         \label{fig:Hardware overview}
     \end{figure}
@@ -48,7 +48,7 @@
     \item[]\textbf{4.2.2 หน้าเมนู} หน้านี้จะแสดงข้อมูลทั้งหมดของระบบหลังจากที่ผู้ใช้เลือกปุ่ม Station ซึ่งประกอบไปด้วย
     \begin{itemize}
         \item เมนู Electric Current: แสดงกราฟการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ซึ่งผู้ใช้สามารถเลือกวันที่ที่ต้องการดูข้อมูลได้
-        \item เมนู Sunlight VS Solar Temp, Temp \& Humidity, Pressure, Wind Speed, Wind Direction เป็นเมนูแสดงข้อมูลที่ถูกส่งมาจากสถานีวัดสภาพอากาศขนาดย่อมรายชั่วโมง
+        \item เมนู Sunlight \& Solar Temp , Temp \& Humidity, Pressure, Wind Speed, Wind Direction เป็นเมนูแสดงข้อมูลที่ถูกส่งมาจากสถานีวัดสภาพอากาศขนาดย่อมรายชั่วโมง
     \end{itemize}
     \begin{figure}[H]
         \centering
@@ -65,7 +65,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/sunlightandsolar.png}
-        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Sunlight VS Solar Temp}
+        \caption{หน้าจอแสดงผลเมื่อผู้ใช้เลือกเมนู Sunlight \& Solar Temp}
         \label{fig:Sunlight VS Solar Temp}
     \end{figure}
     \begin{figure}[H]
@@ -107,79 +107,16 @@
         \includegraphics[width=0.7\textwidth]{statusstationOK.png} 
         \caption{สถานะการทำงานของสถานีวัดสภาพอากาศขนาดย่อมทำงานปกติ}
         \label{fig:statusstationOK}
-        \end{figure}
+    \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{statusstationNG.png} 
         \caption{สถานะการทำงานของสถานีวัดสภาพอากาศขนาดย่อมทำงานผิดปกติ}
         \label{fig:statusstationNG}
-        \end{figure}
+    \end{figure}
 \end{itemize}
 
-\subsection{การวิเคราะห์กราฟ Actual vs Predicted}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{picture/2_actual_vs_predicted.png}
-    \caption[กราฟ Actual vs Predicted]{กราฟ Actual vs Predicted}
-    \label{fig:image1}
-\end{figure}
-
-\vspace{10pt}
-\begin{flushleft}
-\hspace*{0.5cm}
-จากกราฟเปรียบเทียบค่า Actual และ Prediction โดยแกน x คือ Actual และ แกน y คือ Prediction โดยพบว่าค่าการทำนายมีความสอดคล้องกับค่าจริงในภาพรวม โดยจุดข้อมูลส่วนใหญ่กระจายตัวใกล้กับเส้นทแยงมุมสีแดง แสดงให้เห็นว่าโมเดลสามารถเรียนรู้ความสัมพันธ์ระหว่างตัวแปรสภาพอากาศกับการผลิตไฟฟ้าจากโซลาร์เซลล์ได้อย่างมีประสิทธิภาพ 
-อย่างไรก็ตาม ในช่วงค่าการผลิตไฟฟ้าสูง จะพบการกระจายตัวของจุดข้อมูลเพิ่มขึ้น ซึ่งสะท้อนให้เห็นว่าความคลาดเคลื่อนของโมเดลมีแนวโน้มเพิ่มขึ้นเมื่อกำลังผลิตสูงขึ้น อาจเกิดจากความผันผวนของสภาพอากาศแบบฉับพลัน เช่น เมฆบังแดด หรือการเปลี่ยนแปลงของอุณหภูมิที่รวดเร็ว
-\end{flushleft}
-
-
-
-\subsection{การวิเคราะห์ Residual Plot}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{picture/3_residual_plot.png}
-    \caption[Residual Plot]{Residual Plot}
-    \label{fig:image2}
-\end{figure}
-
-\vspace{10pt}
-\begin{flushleft}
-\hspace*{0.5cm}
-จากกราฟจะพบว่าค่าความคลาดเคลื่อนส่วนใหญ่กระจายอยู่รอบค่า 0 แสดงว่าโมเดลไม่มีแนวโน้มทำนายค่าสูงเกินจริง หรือ ต่ำเกินจริง อย่างไรก็ตาม จะเห็นว่าการกระจายของ residual มีลักษณะขยายตัวมากขึ้นเมื่อค่าที่ทำนายมีค่าสูง ซึ่งแสดงถึงความแปรปรวนของความคลาดเคลื่อนที่เพิ่มขึ้นตามระดับกำลังผลิตไฟฟ้า 
-อาจเป็นผลมาจากปัจจัยภายนอกที่มีผลต่อการผลิตไฟฟ้าในช่วงเวลานั้น เช่น สภาพอากาศที่ไม่คงที่ หรือข้อจำกัดของชุดข้อมูลในการฝึกฝนโมเดล
-\end{flushleft}
-
-
-
-\subsection{การวิเคราะห์ Feature Importance}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{picture/5_feature_importance.png}
-    \caption[Feature Importance]{Feature Importance}
-    \label{fig:image3}
-\end{figure}
-
-\vspace{10pt}
-\begin{flushleft}
-\hspace*{0.5cm}
-จากรูปจะเห็นได้ว่าค่ามุมตกกระทบของแสงกับแผงโซลาร์เซลล์ (cos\_incidence) เป็นตัวแปรที่มีความสำคัญมากที่สุดรองลงมาก็คือ ความเข้มแสง (Solar\_GHI) ต่อมาคือความชื้นและอุณหภูมิ มีความสำคัญในระดับปานกลาง และสุดท้ายที่ส่งผลต่อโมเดลน้อยที่สุดคือ ความกดอากาศ
-\end{flushleft}
-
-
-\section{การทำงานของ Web Dashboard}
-
-\subsection{หน้าแรก}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7 \textwidth]{picture/Home.png}
-    \caption[หน้าแรก]{หน้าแรก}
-    \label{fig:image4}
-\end{figure}
-
-\vspace{10pt}
+\section{ผลการทดลอง Machine Learning}
 \begin{itemize}
     \item[]\textbf{4.3.1 ผลการประเมินเชิงตัวเลข} ค่าประสิทธิภาพของโมเดลมีดังนี้
     \begin{itemize}
@@ -262,157 +199,7 @@
 \section{วิเคราะห์และอภิปรายผล}
 \hspace{\parindent} จากการใช้งานระบบพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์ ซึ่งประกอบด้วยสถานีวัดสภาพอากาศขนาดย่อม Web Dashboard และ โมเดล Machine Learning สามารถวิเคราะห์และอภิปรายผลได้ดังนี้
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/prediction.png}
-\caption[หน้าแสดงข้อมูลการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์]{หน้าแสดงข้อมูลการพยากรณ์ปริมาณการผลิตไฟฟ้าจากแผงโซลาร์เซลล์}
-\label{fig:image5}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงผลรวมการพยากร์ณปริมาณการผลิตไฟฟ้าจากโซลาร์เซลล์
-    \item แสดงข้อมูลสภาพอากาศล่าสุดที่วัดได้จากเซ็นเซอร์
-    \item แสดงกราฟการผลิตไฟฟ้าแบบรายชั่วโมงที่พยากรณ์ไว้ล่วงหน้า
-\end{itemize}
-
-\subsection{หน้าแสดงข้อมูลปริมาณไฟฟ้าที่ผลิตได้จริงจากแผงโซลลาร์เซลล์}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Electric Current.png}
-\caption[หน้าแสดงข้อมูลปริมาณไฟฟ้าที่ผลิตได้จริงจากแผงโซลลาร์เซลล์]{หน้าแสดงข้อมูลปริมาณไฟฟ้าที่ผลิตได้จริงจากแผงโซลลาร์เซลล์}
-\label{fig:image6}
-\end{figure}
-\vspace{10pt}
-
-\begin{itemize}
-    \item แสดงผลรวมปริมาณการผลิตไฟฟ้าจากโซลาร์เซลล์ที่ได้ในแต่ละวัน
-    \item แสดงข้อมูลสภาพอากาศภาพเฉลี่ยรายวันที่วัดได้จากเซ็นเซอร์
-    \item แสดงกราฟปริมาณการผลิตไฟฟ้าที่เกิดขึ้นจริงแบบรายชั่วโมง
-    \item ผู้ใช้สามารถเลือกดูข้อมูลย้อนหลังหรือล่วงหน้าได้ผ่านปฏิทินที่มุมขวาบน 
-    \item ผู้ใช้สามารถเลือกดูข้อมูลของแต่ละอาคารได้จากเมนูด้านซ้าย
-\end{itemize}
-
-\subsection{หน้าแสดงข้อมูลปริมาณแสงอาทิตย์และอุณหภูมิแผงโซลลาร์เซลล์}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Sunlight VS Solar Temp.png}
-\caption[หน้าแสดงข้อมูลปริมาณแสงอาทิตย์และอุณหภูมิแผงโซลลาร์เซลล์]{หน้าแสดงข้อมูลปริมาณแสงอาทิตย์และอุณหภูมิแผงโซลลาร์เซลล์}
-\label{fig:image7}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงกราฟเปรียบเทียบระหว่างความเข้มแสงและอุณหภูมิแผงโซลลาร์เซลล์
-    \item แสดงข้อมูลความเข้มแสงและอุณหภูมิแผงโซลลาร์เซลล์เฉลี่ยรายวัน 
-    \item แสดงให้เห็นถึงความสัมพันธ์และแนวโน้มของอุณหภูมิแผงโซลาร์เซลล์ที่แปรผันตามความเข้มของแสงแดดในแต่ละช่วงเวลาของวัน
-\end{itemize}
-
-\subsection{หน้าแสดงข้อมูลอุณหภูมิและความชื้น}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Temp and Humidity.png}
-\caption[หน้าแสดงข้อมูลอุณหภูมิและความชื้น]{หน้าแสดงข้อมูลอุณหภูมิและความชื้น}
-\label{fig:image8}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงกราฟเปรียบเทียบระหว่างอุณหภูมิและความชื้น
-    \item แสดงข้อมูลอุณหภูมิและความชื้นเฉลี่ยรายวัน 
-\end{itemize}
-
-
-
-\subsection{หน้าแสดงข้อมูลความกดอากาศ}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Pressure.png}
-\caption[หน้าแสดงข้อมูลความกดอากาศ]{หน้าแสดงข้อมูลความกดอากาศ}
-\label{fig:image9}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงข้อมูลความกดอากาศเฉลี่ยรายวัน 
-    \item แสดงกราฟความกดอากาศในแต่ละช่วงเวลาของวัน เพื่อใช้เป็นข้อมูลประกอบในการวิเคราะห์การเกิดฝนตกหรือมีเมฆมาก
-\end{itemize}
-
-\subsection{หน้าแสดงข้อมูลความเร็วลม}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Wind Speed.png}
-\caption[หน้าแสดงข้อมูลความเร็วลม]{หน้าแสดงข้อมูลความเร็วลม}
-\label{fig:image10}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงข้อมูลความเร็วลมเฉลี่ยรายวัน 
-    \item แสดงกราฟความเร็วลมในแต่ละช่วงเวลาของวัน เพื่อใช้เป็นข้อมูลประกอบในการวิเคราะห์ปัจจัยการระบายความร้อนของแผงโซลาร์เซลล์
-\end{itemize}
-
-\subsection{หน้าแสดงข้อมูลทิศทางลม}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/Wind Direction.png}
-\caption[หน้าแสดงข้อมูลทิศทางลม]{หน้าแสดงข้อมูลทิศทางลม}
-\label{fig:imag11}
-\end{figure}
-
-\begin{itemize}
-    \item แสดงข้อมูลทิศทางลมเฉลี่ยรายวัน 
-    \item แสดงกราฟการเปลี่ยนแปลงทิศทางลมในหน่วยองศาในแต่ละช่วงเวลาของวัน
-\end{itemize}
-
-\subsection{หน้าแสดงสถานะการทำงานของเซ็นเซอร์}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{picture/sensor check.png}
-\caption[หน้าแสดงสถานะการทำงานของเซ็นเซอร์]{หน้าแสดงสถานะการทำงานของเซ็นเซอร์}
-\label{fig:image12}
-\end{figure}
-
-\vspace{10pt}
-\begin{itemize}
-    \item แสดงข้อมูลภาพรวมต่างๆ ได้แก่ จำนวนเซ็นเซอร์ทั้งหมด จำนวนเซ็นเซอร์ที่ทำงานได้ปกติ จำนวนเซ็นเซอร์ที่ขาดการเชื่อมต่อ และเวลาที่ระบบได้รับการอัปเดตข้อมูลล่าสุด 
-    \item แสดงรายละเอียดของอุปกรณ์แต่ละตัว ได้แก่ ชื่อเซ็นเซอร์ ประเภทการตรวจวัด เวลาที่ส่งข้อมูลเข้าเซิร์ฟเวอร์ครั้งล่าสุด และ สถานะการทำงาน 
-    \item แสดงกราฟปริมาณการผลิตไฟฟ้าที่เกิดขึ้นจริงแบบรายชั่วโมง
-    \item ผู้ใช้สามารถตรวจสอบสถานะการทำงานของเซ็นเซอร์ภายในสถานีวัดสภาพอากาศขนาดย่อมได้อย่างรวดเร็ว ซึ่งช่วยให้ง่ายต่อการซ่อมบำรุงเมื่ออุปกรณ์ตัวใดตัวหนึ่งเกิดปัญหา
-\end{itemize}
-
-\section{การประเมินความพึงพอใจในการใช้งานระบบ}
-
-\hspace*{0.5cm}
-ได้ทําการประเมินความพึงพอใจในการใช้งานระบบ โดยมีนักศึกษามหาวิทยาลัยเชียงใหม่ 21 คนทําการประเมินโดยแบ่งเป็นผู้ชาย 10 คน และผู้หญิง 11 คน โดยให้คะแนนในแต่ละหัวข้อการประเมินตามความพึงพอใจในการใช้งานระบบ ซึ่งผลการประเมินมีดังนี้
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|l|c|}
-\hline
-\textbf{หัวข้อการประเมิน} & \textbf{ความพึงพอใจ(เต็ม 5 คะแนน)} \\ \hline
-ด้านการออกแบบเว็บไซต์ (Interface Design) & 4.84 \\ \hline
-ด้านการแสดงผลข้อมูล (Data Visualization)   & 4.72 \\ \hline
-ด้านการใช้งานระบบ (Usability)   & 4.71 \\ \hline
-ด้านประสิทธิภาพของระบบ (System Performance)   & 4.67  \\ \hline
-ด้านประโยชน์ของระบบ (Usefulness) & 4.84  \\ \hline
-การเข้าถึงระบบ (Accessibility) & 4.80  \\ \hline
-\end{tabular}
-\caption{ตารางสรุปการประเมินความพึงพอใจในการใช้งานระบบ}
-\label{tab:satisfaction}
-\end{table}
-\vspace{10pt}
-\begin{flushleft}
-\hspace*{0.5cm}
-จากผลการประเมินความพึงพอใจรวมของผู้ทดลองใช้เว็บไซต์คือ 4.77 คะแนนหรือคิดเป็น 95.34\%
-\end{flushleft}
+สถานีวัดสภาพอากาศขนาดย่อมที่สร้างขึ้นสามารถเก็บข้อมูลได้อย่างถูกต้องและส่งข้อมูลสม่ำเสมอทุก 1 ชั่วโมง แม้ว่าจะพบความแปรปรวนจากสภาพอากาศ เช่น ฝนตก อย่างไรก็ตาม เนื่องจากสถานีเพิ่งติดตั้งทำให้มีข้อมูลย้อนหลังจำกัด ส่งผลให้ต้องใช้ข้อมูลสภาพอากาศจาก API มาใช้ในการฝึกฝนโมเดลแทนซึ่งทำให้เกิดความคลาดเคลื่อนเมื่อทดสอบกับข้อมูลจริงของสถานี
 
 Web Dashboard ที่พัฒนาขึ้นสามารถแสดงข้อมูลได้ถูกต้อง ผู้ใช้สามารถตรวจสอบข้อมูลสภาพอากาศ กราฟความสัมพันธ์ และผลการพยากรณ์ไฟฟ้าล่วงหน้าได้อย่างสะดวก โดยผลการประเมินความพึงพอใจเฉลี่ยอยู่ที่ 4.77 คะแนน หรือคิดเป็น 95.34\% สะท้อนให้เห็นว่าระบบช่วยให้ผู้ใช้งานเข้าถึงข้อมูลได้ง่าย และมีประโยชน์ต่อการวางแผนการใช้งานพลังงาน
 
